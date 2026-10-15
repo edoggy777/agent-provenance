@@ -1,0 +1,1016 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "identityRegistry_",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "AlreadyRecorded",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "BadBatchSize",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "BadSignature",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "parent",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DuplicateParent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "EmptyId",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MetaTooLong",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "author",
+          "type": "address"
+        }
+      ],
+      "name": "NotAgentController",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInBatch",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "SelfParent",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "TooManyParents",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        }
+      ],
+      "name": "UnknownBatch",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "parent",
+          "type": "bytes32"
+        }
+      ],
+      "name": "UnknownParent",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "author",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "root",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint32",
+          "name": "count",
+          "type": "uint32"
+        }
+      ],
+      "name": "BatchRecorded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "kind",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32[]",
+          "name": "parents",
+          "type": "bytes32[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "meta",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint32",
+          "name": "index",
+          "type": "uint32"
+        }
+      ],
+      "name": "LightRecord",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Promoted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "author",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "kind",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32[]",
+          "name": "parents",
+          "type": "bytes32[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "meta",
+          "type": "string"
+        }
+      ],
+      "name": "Recorded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "KIND_OUTPUT",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "KIND_REVIEW",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "KIND_SOURCE",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "KIND_STEP",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_BATCH",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_META_BYTES",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MAX_PARENTS",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "RECORD_TYPEHASH",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "batchCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "childCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "offset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "childrenOf",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "page",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "domainSeparator",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "exists",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getBatch",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "root",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "author",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "timestamp",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "blockNumber",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint32",
+              "name": "count",
+              "type": "uint32"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.Batch",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getRecord",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "author",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "timestamp",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint64",
+              "name": "blockNumber",
+              "type": "uint64"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "batchId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.Record",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput",
+          "name": "r",
+          "type": "tuple"
+        }
+      ],
+      "name": "hashRecord",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "identityRegistry",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "ancestor",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "descendant",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxNodes",
+          "type": "uint256"
+        }
+      ],
+      "name": "isAncestor",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "found",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "complete",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput",
+          "name": "r",
+          "type": "tuple"
+        },
+        {
+          "internalType": "address",
+          "name": "author",
+          "type": "address"
+        }
+      ],
+      "name": "leafHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "parentsOf",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput",
+          "name": "r",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "proof",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "promote",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput",
+          "name": "r",
+          "type": "tuple"
+        }
+      ],
+      "name": "record",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput[]",
+          "name": "rs",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "recordBatchLight",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "recordCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput[]",
+          "name": "rs",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "recordMany",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput",
+          "name": "r",
+          "type": "tuple"
+        },
+        {
+          "internalType": "address",
+          "name": "author",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "recordSigned",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "batchId",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "id",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32[]",
+              "name": "parents",
+              "type": "bytes32[]"
+            },
+            {
+              "internalType": "uint8",
+              "name": "kind",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "meta",
+              "type": "string"
+            }
+          ],
+          "internalType": "struct ProvenanceGraph.RecordInput",
+          "name": "r",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes32[]",
+          "name": "proof",
+          "type": "bytes32[]"
+        }
+      ],
+      "name": "verifyLight",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x60e034610142576001600160401b0390601f61200838819003918201601f19168301918483118484101761012e5780849260209460405283398101031261014257516001600160a01b0381168103610142576080524660c05260405160208101907f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f82527fee72ecc287da2b78b8c681e7072e31ebaea3f123ecb878d21e741b5fb5b26c7760408201527fc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc660608201524660808201523060a082015260a0815260c08101928184109084111761012e578260405251902060a052611ec190816101478239608051818181610eae015281816119090152611dd5015260a05181611730015260c0518161170a0152f35b634e487b7160e01b5f52604160045260245ffd5b5f80fdfe6080604081815260049182361015610015575f80fd5b5f3560e01c90816306f1305614610edd57508063134e18f414610e9a578063143e25d214610e7f5780631454598014610adf578063164e38ee14610ab857806317171d7714610718578063213681cd146105d657806332c9e25d1461059157806338a699a41461055c5780634443afba146105405780634691005d146105265780635ac442821461046357806361992f9d146103bc5780637d0bcc2a146103305780638599017a14610316578063900407bc146102fa578063950bff9f146102de57806397d4c443146102c4578063981a31371461029d578063b985621a14610268578063cd615d161461024d578063cf85dd5914610213578063e4668f3c146101e9578063e94f7a42146101ce578063eae853f0146101a7578063f698da25146101845763f9bb907514610148575f80fd5b34610180576020366003190112610180576101718261017c93355f525f602052825f20016112e5565b905191829182610f27565b0390f35b5f80fd5b5034610180575f366003190112610180576020906101a0611707565b9051908152f35b5034610180576020906101c56101bc36610f62565b9291909161168f565b90519015158152f35b5034610180575f366003190112610180576020905160018152f35b34610180576102116101fa36610fc7565b6001600160401b0390814316914216903390611980565b005b5034610180575f36600319011261018057602090517f0c32d6cc53e1d88d12877b38686c401c7b208eb1bd03578eaf4da970b45b12878152f35b5034610180575f366003190112610180576020905160038152f35b5090346101805760603660031901126101805761028d90604435906024359035611561565b8251911515825215156020820152f35b503461018057602036600319011261018057602091355f5260018252805f20549051908152f35b5034610180575f3660031901126101805760209051818152f35b5034610180575f36600319011261018057602090516102008152f35b5034610180575f36600319011261018057602091549051908152f35b5034610180576020906101a061032b36610fc7565b611471565b509034610180576020366003190112610180576001600160401b03908035828111610180576103629036908301610ef7565b919093821580156103b1575b6103a45750504282169143165f5b82811061038557005b60019061039e83863361039985898c6110e9565b611980565b0161037c565b516340023b1760e11b8152fd5b50610200831161036e565b50346101805760031990606036830112610180578235906001600160401b03928383116101805760a0908386019336030112610180576103fa610fb1565b906044358481116101805736602382011215610180578086013585811161018057366024828401011161018057602461043d920161043786611471565b85611c62565b156104545750610211935082431692421691611980565b51635cd5d23360e01b81528490fd5b50346101805760203660031901126101805760a0915f608083516104868161101a565b82815282602082015282858201528260608201520152355f5260026020526080815f20600283516104b68161101a565b825494858252600184015493600180891b0394602084019580821687526001600160401b0395869384868801948d1c1684520154966060860195848916875263ffffffff998a910198861c1688528451998a52511660208901525116908601525116606084015251166080820152f35b5034610180575f36600319011261018057602090515f8152f35b5034610180575f36600319011261018057602090516104008152f35b5034610180576020366003190112610180576101c5602092355f525f6020526001600160401b0360405f205460a01c16151590565b5034610180576003198181360112610180578235906001600160401b0382116101805760a0908236030112610180576020926101a0916105cf610fb1565b91016113a1565b509034610180576020908160031936011261018057829192516105f881611049565b5f81528381015f90528281015f9052606081015f9052608081015f905260a081015f905260c0016060905280355f525f8352815f209282519361063a85611049565b84815491600160a01b600190039586841683526001600160401b03808685019560a01c168552600196600184015492828187019281861684526060880195831c60ff1686526002870154966080890197885260038101549860a001988952016106a2906112e5565b9760c08d0198895282519b8a8d526101008d019d51168a8d01525116908a0152511660608801525160ff1660808701525160a08601525160c0850152519360e0840160e0905284518091528161012085019501915f5b8281106107055785870386f35b83518752958101959281019284016106f8565b50346101805761072736610f62565b949293845f9392935260209560028752815f2093845415610aa1579061074e91848861168f565b15610a925760029394956001808501549660018060a01b038816956001600160401b0397889101541691610781866117f8565b8535986107a48a5f525f6020526001600160401b0360405f205460a01c16151590565b610a7c579086959493929160608b980135996107c08a8c611864565b5f835b610980575b505f898152808752879020805467ffffffffffffffff60a01b198c166001600160e01b03199091161760a093841c90921690921b67ffffffffffffffff60a01b1617815581908181018054888a019660ff60401b61082589611140565b8b1b169168ffffffffffffffffff1916171790558a60028201558c6003820155835f9101915b610902575b5050509260607fe684799994465a849b607bce698cefa94162173c61dd711eb00d4eec10f2b02995936108cc6108976108d9958861089060ff9a54610ff8565b9055611140565b956108b46108a78483018361114e565b9190926080810190611183565b95909487519a8b9a168a5289015260608801916111b5565b92858403908601526111d9565b0390a47fcfa001fe3a2e477f1889c4846f666d3cec165f685c6e5b06f8722d10db2189fc5f80a3005b90919293948096985087018b610918828a61114e565b905083101561097557508161095681610943846109506109498e9f9e986109438c9b9a998c9a61114e565b90611937565b3588611947565b8d61114e565b355f528188526109688d8a5f20611947565b018b98979695949361084b565b989695949350610850565b909192939495888198999a5001610997818b61114e565b9050821015610a6c576109ae82610943838d61114e565b35908d8214610a55576109d7825f525f6020526001600160401b0360405f205460a01c16151590565b15610a3e579185918b935f5b838110610a0057505050819250018c9998979695949392916107c3565b9193509193610a148261094385879461114e565b3514610a27578601918b939187936109e3565b8a5163a70564a360e01b8152808901849052602490fd5b8951630c45b2fb60e21b8152808801839052602490fd5b89516301d7749b60e71b8152808801839052602490fd5b8c999897969594939291506107c8565b8551622d326160e51b81528084018b9052602490fd5b51636a737b0960e01b81528390fd5b82516321c9773560e11b8152808701889052602490fd5b50346101805760603660031901126101805761017161017c92604435906024359035611228565b5090346101805760209081600319360112610180576001600160401b0392813584811161018057610b139036908401610ef7565b93909184158015610e74575b610e6557610b2e600354610ff8565b9081600355610b3c866110b7565b93835f5b88848689838510610d495795505050505050515b60019081811115610c4457818101808211610bba57821c915f5b82821c8110610bcd575080821614610b87575b50610b54565b5f1990808201908111610bba57610b9e908761112c565b51908201828111610bba57610bb3908761112c565b525f610b81565b601188634e487b7160e01b5f525260245ffd5b80821b6001600160ff1b0382168203610c3157610bea818a61112c565b5190838101809111610c1e57839291610c06610c0d928c61112c565b5190611e41565b610c17828b61112c565b5201610b6e565b60118b634e487b7160e01b5f525260245ffd5b60118a634e487b7160e01b5f525260245ffd5b50508587848463ffffffff610c588961111f565b5194169260028651610c698161101a565b868152610ce8858201338152848a840181421681528560608601998343168b5260808701998c8b525f52528b5f2094518555600185019260018060a01b039051166bffffffffffffffffffffffff60a01b84541617835551168154906001600160401b0360a01b9060a01b16906001600160401b0360a01b1916179055565b019251166bffffffff000000000000000083549251871b16916bffffffffffffffffffffffff191617179055825191825284820152827f7c2f5d52ebd934df447052ac9194d97531c5f305bec7ed83cdb65d3a51d38c13833393a351908152f35b60ff8585610e4e8196610e2b60019b610e418e7f1a54195e8b776b3782c6a39209a70dc26ac2ea1bd263101164afdd67b52b953e99610d91610d8c8a8a856110e9565b6117f8565b610de289610dda8160609b8c95610db53388610dae86868d6110e9565b0135611864565b610dd383610dcd33610dc883878e6110e9565b6113a1565b9261112c565b52866110e9565b359e846110e9565b01359c610e1d610dfd87610df78c85876110e9565b01611140565b99610e15610e0c8285876110e9565b8781019061114e565b9390946110e9565b608095818780930190611183565b96909588519c8d9c168c528b01528901916111b5565b92868403908701526111d9565b9063ffffffff8916908301520390a4018490610b40565b516340023b1760e11b81528390fd5b506102008511610b1f565b5034610180575f366003190112610180576020905160028152f35b5034610180575f36600319011261018057517f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03168152602090f35b34610180575f366003190112610180576020906003548152f35b9181601f84011215610180578235916001600160401b038311610180576020808501948460051b01011161018057565b60209060206040818301928281528551809452019301915f5b828110610f4e575050505090565b835185529381019392810192600101610f40565b6003199160608284011261018057600435926024356001600160401b03918282116101805760a0908286030112610180576004019260443591821161018057610fad91600401610ef7565b9091565b602435906001600160a01b038216820361018057565b6003199060208183011261018057600435916001600160401b038311610180578260a0920301126101805760040190565b5f1981146110065760010190565b634e487b7160e01b5f52601160045260245ffd5b60a081019081106001600160401b0382111761103557604052565b634e487b7160e01b5f52604160045260245ffd5b60e081019081106001600160401b0382111761103557604052565b606081019081106001600160401b0382111761103557604052565b90601f801991011681019081106001600160401b0382111761103557604052565b6001600160401b0381116110355760051b60200190565b906110c1826110a0565b6110ce604051918261107f565b82815280926110df601f19916110a0565b0190602036910137565b919081101561110b5760051b81013590609e1981360301821215610180570190565b634e487b7160e01b5f52603260045260245ffd5b80511561110b5760200190565b805182101561110b5760209160051b010190565b3560ff811681036101805790565b903590601e198136030182121561018057018035906001600160401b03821161018057602001918160051b3603831361018057565b903590601e198136030182121561018057018035906001600160401b0382116101805760200191813603831361018057565b81835290916001600160fb1b0383116101805760209260051b809284830137010190565b908060209392818452848401375f828201840152601f01601f1916010190565b9190820180921161100657565b9190820391821161100657565b805482101561110b575f5260205f2001905f90565b929091925f5260018060205260405f2093845490818510156112b9578161124f82876111f9565b11156112a957505b6112696112648583611206565b6110b7565b93805b82811061127c5750505050909150565b80611288859289611213565b90549060031b1c6112a261129c8584611206565b8961112c565b520161126c565b6112b49150846111f9565b611257565b505050915050604051602081018181106001600160401b03821117611035576040525f81525f36813790565b90604051918281549182825260209260208301915f5260205f20935f905b82821061131b575050506113199250038361107f565b565b855484526001958601958895509381019390910190611303565b91906001600160fb1b0381116101805760051b809282370190565b6001600160401b03811161103557601f01601f191660200190565b92919261137782611350565b91611385604051938461107f565b829481845281830111610180578281602093845f960137010152565b906020906113b18284018461114e565b6113cb6113d9604096938751928391888301958691611335565b03601f19810183528261107f565b519020916113e8858301611140565b9160606114026113fb6080840184611183565b369161136b565b8681519101209160ff88519588870197833589528a88015216828601520135608084015260a083015260018060a01b031660c082015260c0815261144581611049565b519020918051918083019384528252808201908282106001600160401b03831117611035575251902090565b61147e602082018261114e565b6113cb61149960409493855192839160208301958691611335565b519020906114a8838201611140565b9060606114bb6113fb6080840184611183565b602081519101209160ff86519460208601967f0c32d6cc53e1d88d12877b38686c401c7b208eb1bd03578eaf4da970b45b1287885283358988015284870152166080850152013560a083015260c082015260c0815261151981611049565b519020611524611707565b91805191602083019361190160f01b8552602284015260428301526042825260808201908282106001600160401b03831117611035575251902090565b919091811561168657611573826110b7565b905f6001946115818461111f565b525b8481106115965750505050505f90600190565b6115a96115a282610ff8565b918461112c565b515f525f602052600460405f20015f90838154925b8381106115ce5750505050611583565b6115d88184611213565b929054600393841b1c14611676575f805b8a8110611644575b5061163b5787891461162c5760019161160a8285611213565b9054911b1c61162261161b8b610ff8565b9a8961112c565b525b0184906115be565b5050505050505050505f905f90565b60019150611624565b61164e818a61112c565b516116598487611213565b905490861b1c1461166c576001016115e9565b505060015f6115f1565b5050505050505050506001908190565b5050505f905f90565b929190925f52600260205260405f209081549384156116fe57600192830154919392916116c7916001600160a01b03909116906113a1565b925f925b8084106116da57505050501490565b90916116f484956116ed83968587611937565b3590611e41565b94019291906116cb565b50505050505f90565b467f000000000000000000000000000000000000000000000000000000000000000003611752577f000000000000000000000000000000000000000000000000000000000000000090565b60405160208101907f8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f82527fee72ecc287da2b78b8c681e7072e31ebaea3f123ecb878d21e741b5fb5b26c7760408201527fc89efdaa54c0f20c7adf612882df0950f5a951637e0307cdcb4c672f298b8bc660608201524660808201523060a082015260a0815260c081018181106001600160401b038211176110355760405251902090565b80351561185257602061180d8183018361114e565b90501161184057611825816080610400930190611183565b90501161182e57565b6040516369ed1ea560e01b8152600490fd5b60405163d73c7bad60e01b8152600490fd5b6040516348bf27b560e11b8152600490fd5b9081158015611906575b6118fd5761189d6040516331a9108f60e11b60208201528360248201526024815261189881611064565b611dc8565b6001600160a01b039182169190811682146119015781906118d96040516233950960e01b60208201528560248201526024815261189881611064565b16146118fd5760449250604051916304f87c9360e41b835260048301526024820152fd5b5050565b505050565b507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03161561186e565b919081101561110b5760051b0190565b8054680100000000000000008110156110355761196991600182018155611213565b819291549060031b91821b915f19901b1916179055565b9392909261198d856117f8565b8435926119b0845f525f6020526001600160401b0360405f205460a01c16151590565b611c1b576060860135906119c48683611864565b5f5b602088016119d4818a61114e565b9050821015611a97576119eb82610943838c61114e565b3590878214611a7e57611a14825f525f6020526001600160401b0360405f205460a01c16151590565b15611a65575f5b8a848210611a2f57505050506001016119c6565b611a3e8261094385879461114e565b3514611a4c57600101611a1b565b60405163a70564a360e01b815260048101849052602490fd5b604051630c45b2fb60e21b815260048101839052602490fd5b6040516301d7749b60e71b815260048101839052602490fd5b50505f858152602081815260409182902080546001600160e01b0319166001600160a01b0390991698891760a09490941b67ffffffffffffffff60a01b169390931783559397929695949293909291906001826001829401805495878901966001600160401b0360ff60401b611b0c8a611140565b8b1b1692169068ffffffffffffffffff1916171790558960028201555f600382015560045f9101915b611bbf575b5050505091611bba60ff92611b7d7fe684799994465a849b607bce698cefa94162173c61dd711eb00d4eec10f2b02995611b75600454610ff8565b600455611140565b92611b9e6108cc611b91602084018461114e565b9290936080810190611183565b93909285519889981688526060602089015260608801916111b5565b0390a4565b828701611bcc818961114e565b9050821015611c155781611bfa8161094384611bf46109498b9a99988f8c996109439161114e565b8c61114e565b355f52818452611c0c8a895f20611947565b01909192611b35565b50611b3a565b604051622d326160e51b815260048101859052602490fd5b3d15611c5d573d90611c4482611350565b91611c52604051938461107f565b82523d5f602084013e565b606090565b6001600160a01b03808216949093918515611d1257803b611d365750604103611d2e5760208101359160408201355f1a90601b8210611d1c575b7f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a08411611d12576020935f9360ff6080946040519485521686840152356040830152606082015282805260015afa15611d07575f5116908115159182611d0157505090565b14919050565b6040513d5f823e3d90fd5b5050505050505f90565b90601b0160ff81116110065790611c9c565b505050505f90565b915f945084939550611d726113cb916040519283916020830195630b135d3f60e11b9a8b885260248501526040604485015260648401916111d9565b51915afa90611d7f611c33565b82611dba575b82611d8f57505090565b90915060208180518101031261018057602001516001600160e01b0319811690819003610180571490565b915060208251101591611d85565b905f8080936020815191017f00000000000000000000000000000000000000000000000000000000000000005afa611dfe611c33565b9080611e35575b611e0c5750565b90915060208180518101031261018057602001516001600160a01b038116908190036101805790565b50602081511015611e05565b9080821015611e6d576040519060208201928352604082015260408152611e6781611064565b51902090565b906040519060208201928352604082015260408152611e678161106456fea26469706673582212204be7bad2859944945f40aaecb734eccdbe254e004bca3f85a408057aa72f9b3c64736f6c63430008180033"
+}

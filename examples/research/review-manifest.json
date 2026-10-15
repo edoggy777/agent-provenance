@@ -1,0 +1,5 @@
+{
+  "records": [
+    { "name": "review", "file": "review.md", "kind": "review", "parents": ["report.md", "sources/buoy-data.csv"], "meta": { "verdict": "accurate" } }
+  ]
+}

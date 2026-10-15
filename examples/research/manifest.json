@@ -1,0 +1,8 @@
+{
+  "records": [
+    { "name": "report", "file": "report.md", "kind": "output", "parents": ["notes"], "meta": { "model": "example-model", "task": "surf outlook" } },
+    { "name": "paper", "file": "sources/tide-paper.txt", "kind": "source", "meta": { "url": "https://example.org/tides" } },
+    { "name": "buoy", "file": "sources/buoy-data.csv", "kind": "source", "meta": { "url": "https://example.org/buoy/46225" } },
+    { "name": "notes", "file": "notes.md", "kind": "step", "parents": ["paper", "buoy"], "meta": { "model": "example-model", "tool": "summarize" } }
+  ]
+}

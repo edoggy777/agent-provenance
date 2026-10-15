@@ -1,0 +1,26 @@
+{
+  "name": "agent-provenance",
+  "version": "1.0.0",
+  "description": "On-chain provenance graph for AI agent outputs",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "compile": "node scripts/compile.cjs",
+    "prov": "node src/cli.js",
+    "deploy": "node scripts/deploy.js",
+    "demo:chain": "hardhat node",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "viem": "^2.57.7"
+  },
+  "devDependencies": {
+    "hardhat": "^3.20.0",
+    "solc": "^0.8.24"
+  },
+  "type": "module"
+}
