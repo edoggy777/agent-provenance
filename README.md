@@ -1,3 +1,7 @@
+**Ethereum:** `0x0CDdCff8f61B45fB2870d8Bd46A2170Af62220A4`
+
+[Donate with Ethereum](Eth:0x0CDdCff8f61B45fB2870d8Bd46A2170Af62220A4)
+
 # Agent Provenance Graph
 
 **Live on Base:** [`0xB955fc64b884e0e3dA431cCdd36B864E9A234ac3`](https://basescan.org/address/0xb955fc64b884e0e3da431ccdd36b864e9a234ac3#code)
